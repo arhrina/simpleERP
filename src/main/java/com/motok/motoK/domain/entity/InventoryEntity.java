@@ -1,6 +1,6 @@
 package com.motok.motoK.domain.entity;
 
-import com.motok.motoK.domain.audit.AuditingBy;
+import com.motok.motoK.domain.audit.AuditingAll;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class InventoryEntity extends AuditingBy {
+public class InventoryEntity extends AuditingAll {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

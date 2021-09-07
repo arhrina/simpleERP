@@ -1,4 +1,4 @@
-package com.motok.motoK.controller;
+package com.motok.motoK.account;
 
 import com.motok.motoK.domain.vo.DailyAccountVO;
 import com.motok.motoK.service.impl.AccountService;

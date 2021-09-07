@@ -1,11 +1,11 @@
 package com.motok.motoK.domain.entity;
 
-import com.motok.motoK.domain.audit.AuditingBy;
+import com.motok.motoK.domain.audit.AuditingAll;
 
 import javax.persistence.*;
 
 @Entity
-public class AccountEntity extends AuditingBy {
+public class AccountEntity extends AuditingAll {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long seqNo;
