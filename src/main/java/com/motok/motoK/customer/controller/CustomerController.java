@@ -1,4 +1,4 @@
-package com.motok.motoK.controller;
+package com.motok.motoK.customer.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
