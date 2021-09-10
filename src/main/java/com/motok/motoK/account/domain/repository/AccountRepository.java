@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
     List<Account> findAllByDateOrderByIdDesc(LocalDate date);
+
+    List<Account> findAllByDate(LocalDate date);
 }
