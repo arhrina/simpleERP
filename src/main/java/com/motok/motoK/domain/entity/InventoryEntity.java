@@ -12,7 +12,7 @@ public class InventoryEntity extends AuditingAll {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long seqNo;
+    private Long id;
     private String brand;
     private String partsName;
     private String innerPrice;
