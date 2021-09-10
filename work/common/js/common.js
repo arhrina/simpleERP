@@ -7,6 +7,13 @@ function openMd(modal_name) {
 }
 //팝업 닫기
 $(document).on('click','.modal-close-btn',function() {
-     $('body').removeClass('opened-modal');
+    $('body').removeClass('opened-modal');
 	$('.modal-wrap').hide();
+});
+
+
+//팝업 +,-버튼
+$(document).on('click','.calcul-btn > button',function() {
+    $('.calcul-btn').removeClass('on');
+    $(this).parent('.calcul-btn').addClass('on');
 });

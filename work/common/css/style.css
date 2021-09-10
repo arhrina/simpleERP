@@ -54,14 +54,18 @@ body.opened-guide .modal-wrap { display: none; }
 .account-book-con { width: 1280px; position: relative; margin: 0 auto; padding-bottom: 150px; }
 .account-book-top { padding-bottom: 10px; position: relative; }
 .account-book-top:after { content: ""; display: block; clear: both; }
+.account-book-top .left { float: left; }
+.account-book-top .right { float: right; }
+.account-book-top .right:after { content: ""; display: block; clear: both; }
 .account-book-top .account-date { position: absolute; bottom: 8px; left: 5px; font-size: 20px; line-height: 1; }
+.account-book-top .account-daily-payment { float: left; padding-top: 13px; margin-right: 15px; font-size: 20px; font-weight: bold; }
 .account-book-top .account-btn-wrap { margin: 0 -5px; float: right; }
 .account-book-top .account-btn-wrap:after { content: ""; display: block; clear: both; }
 .account-book-top .account-btn-wrap .account-btn { padding: 0 5px; float: left; }
 .account-book-top .account-btn-wrap .account-btn button { width: 80px; height: 40px; background-color: #aaa; border-radius: 3px; font-size: 16px; color: #fff; }
 .account-book-table table { width: 100%; border-top: 2px solid #323c4a; border-bottom: 1px solid #f4f4f4; text-align: center; }
 .account-book-table table th { height: 30px; padding: 10px 0; font-size: 16px; color: #323c4a; background-color: #f5f5f5; font-size: 14px }
-.account-book-table table td { min-height: 50px; padding: 10px; text-align: center; height: 50px; font-size: 16px; color: #323c4a; border-top: 1px solid #f4f4f4; }
+.account-book-table table td { cursor: pointer; min-height: 50px; padding: 10px; text-align: center; height: 50px; font-size: 16px; color: #323c4a; border-top: 1px solid #f4f4f4; }
 .account-book-table td.price span { padding-left: 15px; position: relative; }
 .account-book-table td.price.plus span { color: #e33636; }
 .account-book-table td.price.plus span:before { content: ""; width: 10px; height: 2px; position: absolute; left: 0; top: 55%; transform: translate(0, -50%); background-color: #e33636; }
@@ -82,12 +86,15 @@ body.opened-guide .modal-wrap { display: none; }
 .paging-con a.arrow.next:after { background-image: url(../img/btn-arrow-next.png); }
 
 .modal-wrap { display: none; width: 620px; position: fixed; top: 20%; left: 50%; transform: translate(-50%, 0); background-color: #fff; border: 1px solid #e8e8e8; border-radius: 20px; z-index: 350; overflow: auto; }
-.modal-inner { padding: 35px 60px 100px; }
+.modal-inner { padding: 35px 60px 80px; }
 .modal-close-btn { width: 40px; height: 40px; position: absolute; top: 15px; right: 15px; z-index: 300; }
 .modal-close-btn:before, .modal-close-btn:after { content: ""; width: 20px; height: 2px; position: absolute; top: 50%; left: 50%; background-color: #000; }
 .modal-close-btn:before { transform: translate(-50%, -50%) rotate(-45deg); }
 .modal-close-btn:after { transform: translate(-50%, -50%) rotate(45deg); }
-.modal-bottom-btn { width: 100px; height: 40px; position: absolute; right: 60px; bottom: 30px; background-color: #aaa; color: #fff; border-radius: 3px; font-size: 16px; }
+.modal-bottom-wrap { position: absolute; right: 60px; bottom: 30px; margin: 0 -5px; }
+.modal-bottom-wrap:after { content: ""; display: block; clear: both; }
+.modal-bottom-btn { padding: 0 5px; float: left; }
+.modal-bottom-btn button { width: 100px; height: 40px; background-color: #aaa; color: #fff; border-radius: 3px; font-size: 16px; }
 .modal-title { font-size: 24px; font-weight: bold; text-align: center; color: #141f2a; margin-bottom: 30px; }
 .modal-enter { position: relative; padding-left: 60px; margin-bottom: 20px; }
 .modal-enter .enter-name { position: absolute; top: 13px; left: 0; }
@@ -97,5 +104,9 @@ body.opened-guide .modal-wrap { display: none; }
 .modal-enter .calcul-btn button { width: 20px; height: 20px; position: relative; border: 1px solid #ddd; }
 .modal-enter .calcul-btn button:before { content: ""; width: 10px; height: 2px; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); background-color: #000; }
 .modal-enter .calcul-btn.plus button:after { content: ""; width: 2px; height: 10px; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); background-color: #000; }
+.modal-enter .calcul-btn.plus.on button { border-width: 2px; border-color: #e33636; }
+.modal-enter .calcul-btn.plus.on button:before, .modal-enter .calcul-btn.on.plus button:after { background-color: #e33636; }
+.modal-enter .calcul-btn.minus.on button { border-width: 2px; border-color: #3129c2; }
+.modal-enter .calcul-btn.minus.on button:before { background-color: #3129c2; }
 
 .overlay-cover { display: none; width: 100%; height: 100%; position: fixed; top: 0; right: 0; background-color: rgba(0,0,0,0.5); z-index: 300; }

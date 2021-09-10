@@ -21,12 +21,14 @@
 			<div class="content">
 				<div class="account-book-con">
 				    <div class="account-book-top">
-				        <div class="account-date">2021.09.08</div>
-				        <div class="account-btn-wrap">
-				            <div class="account-btn register"><button type="button" onclick="openMd('account-register');">등록</button></div>
-				            <div class="account-btn modify"><button type="button" onclick="openMd('account-modify');">수정</button></div>
+				        <div class="left"><div class="account-date">2021.09.08</div></div>
+				        <div class="right">
+                            <div class="account-daily-payment">100,000,000원</div>
+				            <div class="account-btn-wrap">
+				                <div class="account-btn register"><button type="button" onclick="openMd('account-register');">등록</button></div>
+				            </div>
 				        </div>
-				    </div>
+				    </div> <!--// 20210910 수정 //-->
 					<div class="account-book-table">
 						<table>
 							<caption>가계부 테이블 입니다. 번호, 날짜, 내역, 금액, 비고 항목으로 구성되어 있습니다.</caption>
@@ -51,15 +53,15 @@
 									<td colspan="5"><div style="padding: 50px 0; font-size: 24px;">등록된 내용이 없습니다.</div></td>
 								</tr> --> <!--// 등록된 내용 없는 경우 //-->
 
-								<tr>
+								<tr onclick="openMd('account-modify');">
 									<td>1</td>
 									<td>2021.09.08</td>
 									<td>내역내역내역</td>
 									<td class="price plus"><span>500,000,000</span></td>
 									<td>비고비고비고비고비고비고</td>
-								</tr> <!--// plus : 수입, minus : 지출 //--> <!--// 반복 //-->
+								</tr> <!--// plus : 수입, minus : 지출 //--> <!--// 반복 //--> <!--// 20210910 수정 //-->
 
-								<tr><td>222</td><td>2021.09.08</td><td>내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역</td><td class="price plus"><span>50,000</span></td><td>비고비고비고비고비고비고</td></tr><tr><td>3</td><td>2021.09.08</td><td>내역내역내역</td><td class="price minus"><span>50,000</span></td><td>비고비고비고비고비고비고</td></tr><tr><td>444</td><td>2021.09.08</td><td>내역내역내역</td><td class="price minus"><span>500,000</span></td><td>비고비고비고비고비고비고</td></tr><tr><td>55555</td><td>2021.09.08</td><td>내역내역내역</td><td class="price plus"><span>990,000</span></td><td>비고비고비고비고비고비고</td></tr>
+								<tr onclick="openMd('account-modify');"><td>222</td><td>2021.09.08</td><td>내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역</td><td class="price plus"><span>50,000</span></td><td>비고비고비고비고비고비고</td></tr><tr onclick="openMd('account-modify');"><td>3</td><td>2021.09.08</td><td>내역내역내역</td><td class="price minus"><span>50,000</span></td><td>비고비고비고비고비고비고</td></tr><tr><td>444</td><td>2021.09.08</td><td>내역내역내역</td><td class="price minus"><span>500,000</span></td><td>비고비고비고비고비고비고</td></tr><tr onclick="openMd('account-modify');"><td>55555</td><td>2021.09.08</td><td>내역내역내역</td><td class="price plus"><span>990,000</span></td><td>비고비고비고비고비고비고</td></tr>
 
 							</tbody>
 						</table>
@@ -96,7 +98,9 @@
 					</div>
                 </div>
 			</div>
-            <button type="button" class="modal-bottom-btn">등록</button>
+            <div class="modal-bottom-wrap">
+                <div class="modal-bottom-btn"><button type="button" title="등록하기">등록</button></div>
+            </div> <!--// 20210910 수정 //-->
 		</div> <!--// 가계부 등록 팝업 //-->
 
 		<div class="modal-wrap account-modify">
@@ -126,7 +130,10 @@
 					</div>
                 </div>
 			</div>
-            <button type="button" class="modal-bottom-btn">수정</button>
+            <div class="modal-bottom-wrap">
+                <div class="modal-bottom-btn"><button type="button" title="삭제하기">삭제</button></div>
+                <div class="modal-bottom-btn"><button type="button" title="수정하기">수정</button></div>
+            </div> <!--// 20210910 수정 //-->
 		</div> <!--// 가계부 수정 팝업 //-->
 
 		<div class="overlay-cover"></div> <!--// 팝업 배경 //-->
