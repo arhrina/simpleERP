@@ -12,7 +12,7 @@ public class CustomerEntity extends AuditingAll {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long seqNo;
+    private Long id;
     private Long 주행거리;
     private String 기종;
     private String 차량정보;
