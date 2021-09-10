@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("가계부 관련 기능")
-public class AccountTest extends AcceptanceTest {
+public class AccountAcceptanceTest extends AcceptanceTest {
 
     @Autowired
     private AccountRequestFactoryForTest accountRequestFactory;
@@ -70,7 +70,7 @@ public class AccountTest extends AcceptanceTest {
         LocalDate date = LocalDate.now();
         AccountRequest accountRequest1 = accountRequestFactory.newInstance(date, 1);
         AccountRequest accountRequest2 = accountRequestFactory.newInstance(date, 2);
-        ExtractableResponse < Response > createResponse1 = 가계부_등록되어_있음(accountRequest1);
+        ExtractableResponse<Response> createResponse1 = 가계부_등록되어_있음(accountRequest1);
         ExtractableResponse<Response> createResponse2 = 가계부_등록되어_있음(accountRequest2);
 
         //when
@@ -78,6 +78,63 @@ public class AccountTest extends AcceptanceTest {
 
         //then
         가계부_조회_성공함(getResponse, Arrays.asList(createResponse2, createResponse1));
+    }
+
+    @DisplayName("가계부를 삭제한다.")
+    @Test
+    void deleteAccount() {
+        //given
+        LocalDate date = LocalDate.now();
+        AccountRequest createRequest = accountRequestFactory.newInstance(date, 1);
+        ExtractableResponse<Response> createResponse = 가계부_등록되어_있음(createRequest);
+        Long deleteId = createResponse.jsonPath().getLong("id");
+
+        //when
+        ExtractableResponse<Response> deleteResponse = 가계부_삭제_요청(deleteId);
+
+        //then
+        가계부_삭제됨(deleteResponse);
+    }
+
+    @DisplayName("특정 날짜의 가계부 정산 금액을 조회한다.")
+    @Test
+    void getOnedayTotalAmount() {
+        //given
+        LocalDate date = LocalDate.now();
+        AccountRequest accountRequest1 = accountRequestFactory.newInstance(date, 1);
+        AccountRequest accountRequest2 = accountRequestFactory.newInstance(date, 2);
+        ExtractableResponse<Response> createResponse1 = 가계부_등록되어_있음(accountRequest1);
+        ExtractableResponse<Response> createResponse2 = 가계부_등록되어_있음(accountRequest2);
+
+        //when
+        ExtractableResponse<Response> getAmountResponse = 일일정산금액_조회_요청(date);
+
+        //then
+        일일정산금액조회_성공(getAmountResponse, Arrays.asList(createResponse1, createResponse2));
+    }
+
+    private void 일일정산금액조회_성공(ExtractableResponse<Response> getAmountResponse, List<ExtractableResponse<Response>> createResponses) {
+        assertThat(getAmountResponse.statusCode()).isEqualTo(HttpStatus.OK.value());
+        int totalAmount = createResponses.stream()
+                .mapToInt(r -> {
+                    if (r.jsonPath().get("code").equals("PLUS"))
+                        return r.jsonPath().getInt("amount");
+                    else
+                        return r.jsonPath().getInt("amount") * -1;
+                })
+                .sum();
+
+        assertThat(getAmountResponse.jsonPath().getInt("totalAmount")).isEqualTo(totalAmount);
+    }
+
+    private ExtractableResponse<Response> 일일정산금액_조회_요청(LocalDate date) {
+        return RestAssured.given().log().all()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .queryParam("date", date.toString())
+                .when()
+                .get("/account/amount")
+                .then().log().all()
+                .extract();
     }
 
     private ExtractableResponse<Response> 가계부_등록_요청(AccountRequest accountRequest1) {
@@ -106,6 +163,15 @@ public class AccountTest extends AcceptanceTest {
                 .queryParam("date", date.toString())
                 .when()
                 .get("/account")
+                .then().log().all()
+                .extract();
+    }
+
+    private ExtractableResponse<Response> 가계부_삭제_요청(Long deleteId) {
+        return RestAssured.given().log().all()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .when()
+                .delete("/account/" + deleteId)
                 .then().log().all()
                 .extract();
     }
@@ -141,6 +207,10 @@ public class AccountTest extends AcceptanceTest {
                 .collect(Collectors.toList());
 
         assertThat(getResIds).containsExactlyElementsOf(createResIds);
+    }
+
+    private void 가계부_삭제됨(ExtractableResponse<Response> deleteResponse) {
+        assertThat(deleteResponse.statusCode()).isEqualTo(HttpStatus.NO_CONTENT.value());
     }
 
     private ExtractableResponse<Response> 가계부_등록되어_있음(AccountRequest accountRequest) {
