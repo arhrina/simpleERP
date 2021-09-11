@@ -1,6 +1,6 @@
 package com.motok.motoK.domain.entity;
 
-import com.motok.motoK.domain.audit.AuditingBy;
+import com.motok.motoK.domain.audit.AuditingAll;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,11 +8,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class CustomerEntity extends AuditingBy {
+public class CustomerEntity extends AuditingAll {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long seqNo;
+    private Long id;
     private Long 주행거리;
     private String 기종;
     private String 차량정보;
