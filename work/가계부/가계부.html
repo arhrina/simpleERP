@@ -17,18 +17,18 @@
 
 	<div id="wrapper">
 
-		<div id="container" class="container">
+		<div class="container">
 			<div class="content">
 				<div class="account-book-con">
 				    <div class="account-book-top">
-				        <div class="left"><div class="account-date">2021.09.08</div></div>
+				        <div class="left"><input class="account-date" value=""></div>
 				        <div class="right">
                             <div class="account-daily-payment">100,000,000원</div>
 				            <div class="account-btn-wrap">
 				                <div class="account-btn register"><button type="button" onclick="openMd('account-register');">등록</button></div>
 				            </div>
 				        </div>
-				    </div> <!--// 20210910 수정 //-->
+				    </div>
 					<div class="account-book-table">
 						<table>
 							<caption>가계부 테이블 입니다. 번호, 날짜, 내역, 금액, 비고 항목으로 구성되어 있습니다.</caption>
@@ -59,7 +59,7 @@
 									<td>내역내역내역</td>
 									<td class="price plus"><span>500,000,000</span></td>
 									<td>비고비고비고비고비고비고</td>
-								</tr> <!--// plus : 수입, minus : 지출 //--> <!--// 반복 //--> <!--// 20210910 수정 //-->
+								</tr> <!--// plus : 수입, minus : 지출 //--> <!--// 반복 //-->
 
 								<tr onclick="openMd('account-modify');"><td>222</td><td>2021.09.08</td><td>내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역내역</td><td class="price plus"><span>50,000</span></td><td>비고비고비고비고비고비고</td></tr><tr onclick="openMd('account-modify');"><td>3</td><td>2021.09.08</td><td>내역내역내역</td><td class="price minus"><span>50,000</span></td><td>비고비고비고비고비고비고</td></tr><tr><td>444</td><td>2021.09.08</td><td>내역내역내역</td><td class="price minus"><span>500,000</span></td><td>비고비고비고비고비고비고</td></tr><tr onclick="openMd('account-modify');"><td>55555</td><td>2021.09.08</td><td>내역내역내역</td><td class="price plus"><span>990,000</span></td><td>비고비고비고비고비고비고</td></tr>
 
@@ -100,7 +100,7 @@
 			</div>
             <div class="modal-bottom-wrap">
                 <div class="modal-bottom-btn"><button type="button" title="등록하기">등록</button></div>
-            </div> <!--// 20210910 수정 //-->
+            </div>
 		</div> <!--// 가계부 등록 팝업 //-->
 
 		<div class="modal-wrap account-modify">
@@ -133,15 +133,47 @@
             <div class="modal-bottom-wrap">
                 <div class="modal-bottom-btn"><button type="button" title="삭제하기">삭제</button></div>
                 <div class="modal-bottom-btn"><button type="button" title="수정하기">수정</button></div>
-            </div> <!--// 20210910 수정 //-->
+            </div>
 		</div> <!--// 가계부 수정 팝업 //-->
 
 		<div class="overlay-cover"></div> <!--// 팝업 배경 //-->
 
 	</div>
 
-	<script src=" ../common/js/jquery/jquery-3.5.1.min.js"></script>
+	<script src="../common/js/jquery/jquery-3.5.1.min.js"></script>
+	<script src="../common/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
 	<script src="../common/js/common.js"></script>
+	
+	<script>
+        
+        $('.account-date').attr('value', $.datepicker.formatDate('yy.mm.dd', new Date()));
+        
+		// 달력 셋팅
+		$.datepicker.regional['ko'] = {
+			monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+			monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+			dayNames: ['일','월','화','수','목','금','토'],
+			dayNamesShort: ['일','월','화','수','목','금','토'],
+			dayNamesMin: ['일','월','화','수','목','금','토'],
+			showMonthAfterYear: true,
+			firstDay: 0,
+			yearSuffix: '년',
+			dateFormat: 'yy.mm.dd',
+		};
+		$.datepicker.setDefaults($.datepicker.regional['ko']);
+
+		// 달력(시작일자)
+		$('.account-date').datepicker({
+			maxDate: 0,
+			onSelect: function(selectedDate) {
+				$('.datepicker-to').datepicker('option', 'minDate', selectedDate);
+				$(this).attr('value', selectedDate);
+				$('.account-date').val(selectedDate);
+			}
+		});
+
+    
+    </script>
 </body>
 
 </html>
