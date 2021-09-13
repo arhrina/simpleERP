@@ -1,11 +1,11 @@
 spring:
   profiles:
     active: prod
-  datasource:
-    driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://192.168.1.25:3306/motok?characterEncoding=UTF-8&serverTimezone=UTC
-    username: root
-    password: 1234
+#  datasource:
+#    driver-class-name: org.mariadb.jdbc.Driver
+#    url: jdbc:mariadb://192.168.1.25:3306/motok?characterEncoding=UTF-8&serverTimezone=UTC
+#    username: root
+#    password: 1234
 
   jpa:
     hibernate:
