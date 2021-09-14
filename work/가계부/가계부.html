@@ -21,7 +21,7 @@
 			<div class="content">
 				<div class="account-book-con">
 				    <div class="account-book-top">
-				        <div class="left"><input class="account-date" value=""></div>
+				        <div class="account-date-wrap"><button class="date-btn prev"></button><input class="account-date" value=""><button class="date-btn next"></button></div>
 				        <div class="right">
                             <div class="account-daily-payment">100,000,000원</div>
 				            <div class="account-btn-wrap">
@@ -171,7 +171,24 @@
 				$('.account-date').val(selectedDate);
 			}
 		});
-
+        
+        // 날짜 이동 버튼 클릭 시
+        $('.date-btn.prev').click(function() {
+            var date = $('.account-date').datepicker('getDate');
+            date.setDate(date.getDate() - 1);
+            $('.account-date').datepicker('setDate', date);
+            $('.account-date').attr('value', $.datepicker.formatDate('yy.mm.dd', date));
+        });
+        $('.date-btn.next').click(function() {
+            var date = $('.account-date').datepicker('getDate');
+            date.setDate(date.getDate() + 1);
+            $('.account-date').datepicker('setDate', date);
+            $('.account-date').attr('value', $.datepicker.formatDate('yy.mm.dd', date));
+            if(date > new Date()) {
+                $('.account-date').datepicker('setDate', new Date());
+                $('.account-date').attr('value', $.datepicker.formatDate('yy.mm.dd', new Date()));
+            }
+        });
     
     </script>
 </body>

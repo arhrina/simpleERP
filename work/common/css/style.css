@@ -54,10 +54,17 @@ body.opened-guide .modal-wrap { display: none; }
 .account-book-con { width: 1280px; position: relative; margin: 0 auto; padding-bottom: 150px; }
 .account-book-top { padding-bottom: 10px; position: relative; }
 .account-book-top:after { content: ""; display: block; clear: both; }
-.account-book-top .left { float: left; }
 .account-book-top .right { float: right; }
 .account-book-top .right:after { content: ""; display: block; clear: both; }
-.account-book-top .account-date { width: 120px; position: absolute; bottom: 8px; left: 5px; font-size: 20px; line-height: 1; border: 0; text-align: center; }
+.account-book-top .account-date-wrap { width: 180px; padding: 0 30px; position: absolute; bottom: 8px; }
+.account-book-top .account-date { width: 120px; height: 30px; font-size: 20px; line-height: 1; border: 0; text-align: center; }
+.account-book-top .date-btn { width: 30px; height: 26px; position: absolute; bottom: 0; }
+.account-book-top .date-btn.prev { left: 0; }
+.account-book-top .date-btn.next { right: 0; }
+.account-book-top .date-btn.prev:before { content: ""; width: 13px; height: 3px; position: absolute; top: 36%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg);background-color: #000; }
+.account-book-top .date-btn.prev:after { content: ""; width: 13px; height: 3px; position: absolute; bottom: 26%; left: 50%; transform: translate(-50%, -50%) rotate(45deg);background-color: #000; }
+.account-book-top .date-btn.next:before { content: ""; width: 13px; height: 3px; position: absolute; top: 36%; left: 50%; transform: translate(-50%, -50%) rotate(-135deg);background-color: #000; }
+.account-book-top .date-btn.next:after { content: ""; width: 13px; height: 3px; position: absolute; bottom: 26%; left: 50%; transform: translate(-50%, -50%) rotate(135deg);background-color: #000; }
 .account-book-top .account-daily-payment { float: left; padding-top: 13px; margin-right: 15px; font-size: 20px; font-weight: bold; }
 .account-book-top .account-btn-wrap { margin: 0 -5px; float: right; }
 .account-book-top .account-btn-wrap:after { content: ""; display: block; clear: both; }
