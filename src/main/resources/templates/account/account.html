@@ -21,9 +21,7 @@
             <div class="content">
                 <div class="account-book-con">
                     <div class="account-book-top">
-                        <div class="left">
-                            <div class="account-date" id="date" th:text="${date}">2021-09-08</div>
-                        </div>
+                        <div class="account-date-wrap"><button class="date-btn prev"></button><input class="account-date" id="date" th:value="${date}"><button class="date-btn next"></button></div>
                         <div class="right">
                             <div class="account-daily-payment" id="totalAmount">-원</div>
                             <div class="account-btn-wrap">
@@ -32,7 +30,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div> <!--// 20210910 수정 //-->
+                    </div>
                     <div class="account-book-table">
                         <table>
                             <caption>가계부 테이블 입니다. 번호, 날짜, 내역, 금액, 비고 항목으로 구성되어 있습니다.</caption>
@@ -55,14 +53,14 @@
                             <tbody>
                             <tr>
                                 <td colspan="5"><div style="padding: 50px 0; font-size: 24px;">등록된 내용이 없습니다.</div></td>
-                            </tr>  <!--// 등록된 내용 없는 경우 //-->
+                            </tr>
                             </tbody>
                         </table>
                     </div>
 
                 </div>
             </div>
-        </div>    <!--// 본문 //-->
+        </div>
 
         <div class="modal-wrap account-register">
             <button type="button" class="modal-close-btn"><span></span></button>
@@ -100,8 +98,8 @@
                 <div class="modal-bottom-btn">
                     <button type="button" id="createAccountBtn" title="등록하기">등록</button>
                 </div>
-            </div> <!--// 20210910 수정 //-->
-        </div> <!--// 가계부 등록 팝업 //-->
+            </div>
+        </div>
 
         <div class="modal-wrap account-modify">
             <button type="button" class="modal-close-btn"><span></span></button>
@@ -143,15 +141,61 @@
                 <div class="modal-bottom-btn">
                     <button type="button" id="updateAccountBtn" title="수정하기">수정</button>
                 </div>
-            </div> <!--// 20210910 수정 //-->
-        </div> <!--// 가계부 수정 팝업 //-->
+            </div>
+        </div>
 
-        <div class="overlay-cover"></div> <!--// 팝업 배경 //-->
+        <div class="overlay-cover"></div>
 
     </div>
 
     <script src=" ../common/js/jquery/jquery-3.5.1.min.js"></script>
+    <script src="../common/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
     <script src="../common/js/common.js"></script>
+    <script>
+        // 달력 셋팅
+        $.datepicker.regional['ko'] = {
+            monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+            monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+            dayNames: ['일','월','화','수','목','금','토'],
+            dayNamesShort: ['일','월','화','수','목','금','토'],
+            dayNamesMin: ['일','월','화','수','목','금','토'],
+            showMonthAfterYear: true,
+            firstDay: 0,
+            yearSuffix: '년',
+            dateFormat: 'yy-mm-dd',
+        };
+        $.datepicker.setDefaults($.datepicker.regional['ko']);
+
+        // 달력(시작일자)
+        $('.account-date').datepicker({
+            maxDate: 0,
+            onSelect: function(selectedDate) {
+                $('.datepicker-to').datepicker('option', 'minDate', selectedDate);
+                $(this).attr('value', selectedDate);
+                $('.account-date').val(selectedDate);
+            }
+        });
+
+        // 날짜 이동 버튼 클릭 시
+        $('.date-btn.prev').click(function() {
+            var date = $('.account-date').datepicker('getDate');
+            date.setDate(date.getDate() - 1);
+            $('.account-date').datepicker('setDate', date);
+            $('.account-date').attr('value', $.datepicker.formatDate('yy-mm-dd', date));
+            Account.toView(date);
+        });
+        $('.date-btn.next').click(function() {
+            var date = $('.account-date').datepicker('getDate');
+            date.setDate(date.getDate() + 1);
+            if(date > new Date()) {
+                return;
+            }
+            $('.account-date').datepicker('setDate', date);
+            $('.account-date').attr('value', $.datepicker.formatDate('yy-mm-dd', date));
+            Account.toView(date);
+        });
+
+    </script>
 </body>
 
 <script src="../common/js/account.js"></script>
