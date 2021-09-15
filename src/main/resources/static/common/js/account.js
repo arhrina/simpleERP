@@ -1,7 +1,7 @@
 Account = {
     getAccounts : function(now) {
         $.ajax({
-            url : 'http://localhost:8080/account?date=' + now.getFullYear() + '-' + ('0' + (now.getMonth() + 1)).slice(-2) + '-' + ('0' + now.getDate()).slice(-2),
+            url : 'http://localhost:8080/account?date=' + now,
             method : 'GET',
             contentType : 'application/json',
             success : function(data) {
@@ -10,15 +10,7 @@ Account = {
                     $("tbody").empty();
                 data.forEach(function(e) {
                     console.log("e", e);
-                    let row =
-                    '<tr onClick="openMd(\'account-modify\', this);">' +
-                        '<td>' + e.id + '</td>' +
-                        '<td>' + e.date + '</td>' +
-                        '<td>' + e.content + '</td>' +
-                        '<td class="price ' + e.code.toLowerCase() + '"><span>' + e.amount + '</span></td>' +
-                        '<td>' + e.remarks + '</td>' +
-                    '</tr>';
-                    $("tbody").append(row);
+                    $("tbody").append(Account.getRowHtml(e.id, e.date, e.content, e.code, e.amount, e.remarks));
                 });
             },
             error : function(jqXHR, textStatus, errorThrown) {
@@ -79,7 +71,7 @@ Account = {
     },
     getTotalAmount : function(now) {
         $.ajax({
-            url : 'http://localhost:8080/account/amount?date=' + now.getFullYear() + '-' + ('0' + (now.getMonth() + 1)).slice(-2) + '-' + ('0' + now.getDate()).slice(-2),
+            url : 'http://localhost:8080/account/amount?date=' + now,
             method : 'GET',
             contentType : 'application/json',
             success : function(data) {
@@ -91,43 +83,75 @@ Account = {
                 console.log(jqXHR, textStatus, errorThrown);
             }
         })
+    },
+    getRowHtml : function(id, date, content, code, amount, remarks) {
+        return '<tr onClick="openMd(\'account-modify\', this);">' +
+                    '<td>' + id + '</td>' +
+                    '<td>' + date + '</td>' +
+                    '<td>' + content + '</td>' +
+                    '<td class="price ' + code.toLowerCase() + '"><span>' + amount + '</span></td>' +
+                    '<td>' + remarks + '</td>' +
+                '</tr>';
+    },
+    toView : function(date) {
+        location.href = "/view/account?date=" + DateUtils.dateToString(date);
+    }
+}
+
+DateUtils = {
+    dateToString : function(org_date) {
+        let date = new Date(org_date);
+        return date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+    }
+}
+
+ValidCheck = {
+    isMoney : function(money) {
+        if (Number(money) >= 0) {
+            return true;
+        }
+        alert("금액은 0이상의 숫자여야합니다.");
+        return false;
+    },
+    isValidData : function(data) {
+        if (!ValidCheck.isMoney(data.amount)) {
+            return false;
+        }
+        //data.amount가 0이면 부호는 +로 설정
+        if (Number(data.amount) == 0) {
+            data.code = "PLUS";
+        }
+        return true;
     }
 }
 
 $(document).ready(function() {
-    let date = new Date($("#date").text());
-    Account.getAccounts(date);
-    Account.getTotalAmount(date);
+    Account.getAccounts(DateUtils.dateToString($("#date").val()));
+    Account.getTotalAmount(DateUtils.dateToString($("#date").val()));
 
     $("#createAccountBtn").click(function(e) {
         console.log(e);
         let data = {
-            date : $("#date").text(),
+            date : $("#date").val(),
             content : $("#createContent").val(),
             code : $("#createCode").val(),
             amount : $("#createAmount").val(),
             remarks : $("#createRemarks").val(),
         }
-        if (!Number(data.amount)) {
-            alert("금액은 숫자여야합니다.");
-            return;
-        }
+        if (!ValidCheck.isValidData(data)) return;
         Account.createAccount(JSON.stringify(data));
     });
     $("#updateAccountBtn").click(function(e) {
         console.log(e);
         let id = $("#updateId").val();
         let data = {
-            date : $("#date").text(),
+            date : $("#date").val(),
             content : $("#updateContent").val(),
             code : $("#updateCode").val(),
             amount : $("#updateAmount").val(),
             remarks : $("#updateRemarks").val(),
         }
-        if (!Number(data.amount)) {
-            alert("금액은 숫자여야합니다.");
-            return;
-        }
+        if (!ValidCheck.isValidData(data)) return;
         Account.updateAccount(id, JSON.stringify(data));
     });
     $("#deleteAccountBtn").click(function(e) {
