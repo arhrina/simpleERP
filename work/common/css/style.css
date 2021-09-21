@@ -20,9 +20,9 @@ a {color: inherit; text-decoration:none; -webkit-text-decoration-skip: objects;}
 a:active, a:hover {outline: 0;}
 video {display: block; width: 100%;}
 label {vertical-align: middle;}
-select {padding-left: 10px; border: 1px solid #ccc; background: #fff; border-radius: 0; vertical-align: middle; text-transform: none;}
+select {width: 100%; padding: 0 20px; height: 50px; border: 1px solid #e8e8e8; border-radius: 10px; padding-left: 10px; background: #fff; border-radius: 3px; vertical-align: middle; text-transform: none;}
 input, textarea {vertical-align: middle; line-height: normal; border-radius: 0; background-color: #fff; -webkit-touch-callout: default !important; -webkit-user-select: text !important;}
-input[type="text"], input[type="password"], input[type="number"], input[type="email"], input[type="tel"], input[type="url"], input[type="search"], input[type="time"], input[type="file"], input[type="date"], textarea { width: 100%; padding: 0 20px; height: 50px; border: 1px solid #e8e8e8; border-radius: 10px; -webkit-appearance: none; appearance: none;}
+input[type="text"], input[type="password"], input[type="number"], input[type="email"], input[type="tel"], input[type="url"], input[type="search"], input[type="time"], input[type="file"], input[type="date"], textarea { width: 100%; padding: 0 20px; height: 50px; border: 1px solid #e8e8e8; border-radius: 3px; -webkit-appearance: none; appearance: none;}
 /*input[type="password"] {font-family: Arial, Tahoma, sans-serif !important;}*/
 input[type="checkbox"], input[type="radio"] {width: auto; border: none;}
 input[type="button"], input[type="reset"], input[type="submit"] {cursor: pointer; -webkit-appearance: button;}
@@ -47,9 +47,29 @@ body.opened-sm, body.opened-modal, body.opened-guide { overflow: hidden; }
 body.opened-modal .overlay-cover, body.opened-modal .modal-wrap.email, body.opened-guide .modal-wrap.guide, body.opened-guide .overlay-cover { display: block; }
 body.opened-guide .modal-wrap { display: none; }
 
-.container { padding-top: 100px; }
+#wrapper { width: 1280px; position: relative; margin: 0 auto; padding-top: 100px; }
 
 .fc-blue { color: #0065c9; }
+
+.depth-con { display: block; position: absolute; left: 0; top: 0; bottom: 0; }
+.depth-con.opened-depth .depth-wrap, .depth-con.opened-depth .close-depth-btn { display: block; }
+.depth-con.opened-depth .open-depth-btn { display: none; }
+.open-depth-btn { display: block; width: 50px; height: 50px; position: absolute; top: 0; left: 0; }
+.open-depth-btn span { display: block; width: 24px; height: 3px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #000; border-radius: 1px; }
+.open-depth-btn span:after, .open-depth-btn span:before { content: ""; position: absolute; left: 0; top: 0; width: 100%; height: 3px; background-color: #000; border-radius: 1px; }
+.open-depth-btn span:before  { top: -10px; }
+.open-depth-btn span:after { top: 10px; }
+.close-depth-btn { display: none; width: 50px; height: 50px; position: absolute; right: 0; top: 0; }
+.close-depth-btn:before, .close-depth-btn:after { content: ""; width: 28px; height: 3px; background-color: #000; border-radius: 1.5px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.close-depth-btn:before { left: 50%; transform: translateX(-50%) rotate(45deg); }
+.close-depth-btn:after { left: 50%; transform: translateX(-50%) rotate(-45deg); }
+.depth-wrap { display: none; width: 200px; height: 100%; padding-top: 50px; border-right: 1px solid #ccc; }
+.depth-wrap .main-depth { border-top: 1px solid #ccc; }
+.depth-wrap .main-depth > .depth-item { border-bottom: 1px solid #ccc; }
+.depth-wrap .main-depth > .depth-item a { display: block; font-size: 18px; line-height: 40px; padding-left: 15px; }
+.depth-wrap .sub-depth > .depth-item a { display: block; font-size: 16px; line-height: 40px; padding-left: 30px; border-top: 1px solid #ccc; }
+.depth-wrap .sub-depth .sub-depth > .depth-item a { display: block; font-size: 14px; line-height: 40px; padding-left: 50px; border-top: 1px solid #ccc; }
+.depth-wrap .sub-depth { display: none; }
 
 .account-book-con { width: 1280px; position: relative; margin: 0 auto; padding-bottom: 150px; }
 .account-book-top { padding-bottom: 10px; position: relative; }
@@ -79,6 +99,31 @@ body.opened-guide .modal-wrap { display: none; }
 .account-book-table td.price.plus span:after { content: ""; width: 2px; height: 10px; position: absolute; left: 4px; top: 55%; transform: translate(0, -50%); background-color: #e33636; }
 .account-book-table td.price.minus span { color: #3129c2; }
 .account-book-table td.price.minus span:before { content: ""; width: 10px; height: 2px; position: absolute; left: 0; top: 55%; transform: translate(0, -50%); background-color: #3129c2; }
+
+.control-con { width: 800px; position: relative; margin: 0 auto; padding-bottom: 150px; }
+.control-con .control-enter { padding-bottom: 30px; }
+.control-con .control-enter.half, .control-con .control-enter.third { margin: 0 -5px; }
+.control-con .control-enter.half:after, .control-con .control-enter.third:after { content: ""; display: block; clear: both; }
+.control-con .control-enter.half .enter-item { width: 50%; float: left; padding: 0 5px; }
+.control-con .control-enter.third .enter-item { width: 33.33%; float: left; padding: 0 5px; }
+.control-con .control-enter .enter-title { font-size: 16px; padding-bottom: 5px; }
+
+.control-view-wrap { border-top: 1px solid #e8e8e8; padding-bottom: 30px; }
+.control-view-wrap .control-view { border-bottom: 1px solid #e8e8e8; }
+.control-view-wrap .control-view:after { content: ""; display: block; clear: both; }
+.control-view-wrap .control-view > div { min-height: 50px; float: left; }
+.control-view-wrap .control-view .view-title { width: 15%; line-height: 50px; text-align: center;  }
+.control-view-wrap .control-view .view-item { width: 85%; padding: 12px 10px; line-height: 1.5; }
+
+.login-con { width: 500px; margin: 0 auto; }
+.login-con .login-enter { margin-bottom: 20px; }
+.login-con .enter-title { padding-bottom: 5px; }
+.login-con .login-btn { margin: 40px 0; display: block; width: 100%; height: 50px; text-align: center; background-color: #343340; color: #fff; border-radius: 3px; }
+
+.bottom-btn-wrap { margin: 0 -5px; }
+.bottom-btn-wrap:after { content: ""; display: block; clear: both; }
+.bottom-btn { padding: 0 5px; float: right;}
+.bottom-btn button { display: inline-block; height: 40px; padding: 0 10px; background-color: #aaa; color: #fff; border-radius: 3px; font-size: 16px; }
 
 .paging-con { width: 1280px; margin: 20px auto; text-align: center; }
 .paging-con > div { display: inline-block; position: relative; padding-left: 33px; padding-right: 33px; }
