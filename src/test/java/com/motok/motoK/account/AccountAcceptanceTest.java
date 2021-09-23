@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static com.motok.motoK.account.AccountTestFixture.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("가계부 관련 기능")
@@ -121,62 +122,12 @@ public class AccountAcceptanceTest extends AcceptanceTest {
                         return r.jsonPath().getInt("amount");
                     else
                         return r.jsonPath().getInt("amount") * -1;
-                })
-                .sum();
+                }).sum();
 
         assertThat(getAmountResponse.jsonPath().getInt("totalAmount")).isEqualTo(totalAmount);
     }
 
-    private ExtractableResponse<Response> 일일정산금액_조회_요청(LocalDate date) {
-        return RestAssured.given().log().all()
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .queryParam("date", date.toString())
-                .when()
-                .get("/account/amount")
-                .then().log().all()
-                .extract();
-    }
-
-    public static ExtractableResponse<Response> 가계부_등록_요청(AccountRequest accountRequest1) {
-        return RestAssured.given().log().all()
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .body(accountRequest1)
-                .when()
-                .post("/account")
-                .then().log().all()
-                .extract();
-    }
-
-    private ExtractableResponse<Response> 가계부_수정_요청(Long updateId, AccountRequest updateRequest) {
-        return RestAssured.given().log().all()
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .body(updateRequest)
-                .when()
-                .patch("/account/" + updateId)
-                .then().log().all()
-                .extract();
-    }
-
-    private ExtractableResponse<Response> 가계부_조회_요청(LocalDate date) {
-        return RestAssured.given().log().all()
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .queryParam("date", date.toString())
-                .when()
-                .get("/account")
-                .then().log().all()
-                .extract();
-    }
-
-    private ExtractableResponse<Response> 가계부_삭제_요청(Long deleteId) {
-        return RestAssured.given().log().all()
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .when()
-                .delete("/account/" + deleteId)
-                .then().log().all()
-                .extract();
-    }
-
-    public static void 가계부_등록됨(AccountRequest createRequest, ExtractableResponse<Response> response) {
+    private void 가계부_등록됨(AccountRequest createRequest, ExtractableResponse<Response> response) {
         assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
         assertThat(response.header("Location")).isNotBlank();
         assertThat(response.jsonPath().getLong("id")).isNotNull();

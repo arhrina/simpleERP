@@ -19,6 +19,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.motok.motoK.account.AccountTestFixture.가계부_등록_요청;
+import static com.motok.motoK.statistics.StatisticsTestFixture.일별통계_조회_요청;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("통계 관련 기능")
@@ -34,9 +36,9 @@ public class StatisticsAcceptanceTest extends AcceptanceTest {
         LocalDate day1 = LocalDate.of(2021, 8, 15);
         LocalDate day2 = LocalDate.of(2021, 9, 1);
         LocalDate day3 = LocalDate.of(2021, 9, 5);
-        AccountAcceptanceTest.가계부_등록_요청(accountRequestFactory.newInstance(day1, 1));
-        AccountAcceptanceTest.가계부_등록_요청(accountRequestFactory.newInstance(day2, 2));
-        AccountAcceptanceTest.가계부_등록_요청(accountRequestFactory.newInstance(day3, 3));
+        가계부_등록_요청(accountRequestFactory.newInstance(day1, 1));
+        가계부_등록_요청(accountRequestFactory.newInstance(day2, 2));
+        가계부_등록_요청(accountRequestFactory.newInstance(day3, 3));
         int month = LocalDate.of(2021, 9, 5).getMonthValue();
 
         //when
@@ -59,14 +61,6 @@ public class StatisticsAcceptanceTest extends AcceptanceTest {
         assertThat(resMonths).containsExactlyElementsOf(reqMonths);
     }
 
-    private ExtractableResponse<Response> 일별통계_조회_요청(int month) {
-        return RestAssured.given().log().all()
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .queryParam("month", month)
-                .when()
-                .get("/statistics/day")
-                .then().log().all()
-                .extract();
-    }
+
 
 }
