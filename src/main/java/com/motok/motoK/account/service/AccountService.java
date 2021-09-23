@@ -30,14 +30,11 @@ public class AccountService {
     }
 
     public AccountResponse updateAccount(Long id, AccountRequest accountRequest) {
-        accountRepository.findById(id).orElseThrow(IllegalArgumentException::new)
-                .updateTo(accountRequest.getContent(),
-                        accountRequest.getCode(),
-                        accountRequest.getAmount(),
-                        accountRequest.getRemarks());
-        accountRepository.flush();
-
         Account updateAccount = accountRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        updateAccount.updateTo(accountRequest.getContent(),
+                accountRequest.getCode(),
+                accountRequest.getAmount(),
+                accountRequest.getRemarks());
         return AccountResponse.of(updateAccount);
     }
 
@@ -53,11 +50,8 @@ public class AccountService {
     }
 
     public BigInteger getTotalAmount(LocalDate date) {
-        List<Account> accounts = accountRepository.findAllByDate(date);
-        BigInteger sum = BigInteger.valueOf(0l);
-        for (Account account : accounts) {
-            sum = sum.add(account.getCode() == AccountCode.PLUS ? account.getAmount() : account.getAmount().multiply(BigInteger.valueOf(-1l)));
-        }
-        return sum;
+        return accountRepository.findAllByDate(date).stream()
+                .map(account -> account.getAmount().multiply(BigInteger.valueOf(account.getCode().isPlus() ? 1 : -1)))
+                .reduce(BigInteger.ZERO, BigInteger::add);
     }
 }

@@ -137,7 +137,7 @@ public class AccountAcceptanceTest extends AcceptanceTest {
                 .extract();
     }
 
-    private ExtractableResponse<Response> 가계부_등록_요청(AccountRequest accountRequest1) {
+    public static ExtractableResponse<Response> 가계부_등록_요청(AccountRequest accountRequest1) {
         return RestAssured.given().log().all()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(accountRequest1)
@@ -176,7 +176,7 @@ public class AccountAcceptanceTest extends AcceptanceTest {
                 .extract();
     }
 
-    private void 가계부_등록됨(AccountRequest createRequest, ExtractableResponse<Response> response) {
+    public static void 가계부_등록됨(AccountRequest createRequest, ExtractableResponse<Response> response) {
         assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
         assertThat(response.header("Location")).isNotBlank();
         assertThat(response.jsonPath().getLong("id")).isNotNull();
@@ -217,26 +217,5 @@ public class AccountAcceptanceTest extends AcceptanceTest {
         ExtractableResponse<Response> createResponse = 가계부_등록_요청(accountRequest);
         가계부_등록됨(accountRequest, createResponse);
         return createResponse;
-    }
-}
-
-@Component
-class AccountRequestFactoryForTest implements InitializingBean {
-    private Map<Integer, AccountRequest> accountRequestMap = new HashMap<>();
-
-    @Override
-    public void afterPropertiesSet() {
-        accountRequestMap.put(1, new AccountRequest(LocalDate.now(), "시프트 판매", AccountCode.PLUS, BigInteger.valueOf(20000), "비고 없음"));
-        accountRequestMap.put(2, new AccountRequest(LocalDate.now(), "휠 구매", AccountCode.MINUS, BigInteger.valueOf(10000), "많이 필요"));
-        accountRequestMap.put(3, new AccountRequest(LocalDate.now(), "시프트 2개 판매", AccountCode.PLUS, BigInteger.valueOf(40000), "비고 많음"));
-    }
-
-    public AccountRequest newInstance(LocalDate date, int type) {
-        if (accountRequestMap.containsKey(type)) {
-            AccountRequest accountRequest = accountRequestMap.get(type);
-            accountRequest.changeDate(date);
-            return accountRequest;
-        }
-        throw new IllegalArgumentException("존재하지 않는 타입입니다.");
     }
 }

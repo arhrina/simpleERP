@@ -18,4 +18,8 @@ public enum AccountCode {
         this.code = code;
         this.value = value;
     }
+
+    public boolean isPlus() {
+        return this == PLUS;
+    }
 }
