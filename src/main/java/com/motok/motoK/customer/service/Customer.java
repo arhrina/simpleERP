@@ -1,4 +1,4 @@
-package com.motok.motoK.service;
+package com.motok.motoK.customer.service;
 
 public interface Customer {
     public void 신규고객등록();

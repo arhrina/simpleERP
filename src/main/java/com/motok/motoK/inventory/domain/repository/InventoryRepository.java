@@ -1,9 +1,7 @@
-package com.motok.motoK.repository;
+package com.motok.motoK.inventory.domain.repository;
 
 import com.motok.motoK.inventory.domain.entity.Inventory;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
 public interface InventoryRepository extends JpaRepository<Inventory, Long> {
 }

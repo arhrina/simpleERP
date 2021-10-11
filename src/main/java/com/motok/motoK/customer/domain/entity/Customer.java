@@ -1,4 +1,4 @@
-package com.motok.motoK.domain.entity;
+package com.motok.motoK.customer.domain.entity;
 
 import com.motok.motoK.domain.audit.AuditingAll;
 
@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class CustomerEntity extends AuditingAll {
+public class Customer extends AuditingAll {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

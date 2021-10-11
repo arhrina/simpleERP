@@ -1,4 +1,4 @@
-package com.motok.motoK.service;
+package com.motok.motoK.inventory.service;
 
 public interface Inventory {
     public void 브랜드관리();
